@@ -178,6 +178,9 @@ h1 {
   color: #ffab04;
 }
 
+.span {
+  padding: 0.5rem 1.5rem;
+}
 .control {
   margin: 0.5rem 0;
   display: flex;

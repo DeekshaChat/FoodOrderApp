@@ -1,10 +1,31 @@
+import { useEffect, useState } from "react";
+import Item from "./components/Item";
+import Header from "./components/Header";
+import { CartProvider } from "./store/CartContext";
+
 function App() {
+  const [mealsData, setMealsData] = useState([]);
+
+  useEffect(() => {
+    async function callApi(){
+      const response = await fetch('http://localhost:3000/meals');
+      const data = await response.json();
+      console.log('data====', data);
+      setMealsData(data);
+    }
+
+    callApi();
+  }, []);
+  
   return (
-    <>
-      <h1>You got this 💪</h1>
-      <p>Stuck? Not sure how to proceed?</p>
-      <p>Don't worry - we've all been there. Let's build it together!</p>
-    </>
+    <CartProvider>
+      <Header />
+      <ul id='meals'>
+        {mealsData.map((meal) => (
+          <Item meal ={meal} key={meal.id} />
+        ))}
+      </ul>
+    </CartProvider>
   );
 }
 

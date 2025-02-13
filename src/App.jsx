@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import Item from "./components/Item";
 import Header from "./components/Header";
 import { CartProvider } from "./store/CartContext";
+import { UserProgressProvider } from "./store/UserProgressContext";
+import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 
 function App() {
   const [mealsData, setMealsData] = useState([]);
@@ -18,14 +21,18 @@ function App() {
   }, []);
   
   return (
-    <CartProvider>
-      <Header />
-      <ul id='meals'>
-        {mealsData.map((meal) => (
-          <Item meal ={meal} key={meal.id} />
-        ))}
-      </ul>
-    </CartProvider>
+    <UserProgressProvider>
+      <CartProvider>
+        <Header />
+        <ul id='meals'>
+          {mealsData.map((meal) => (
+            <Item meal ={meal} key={meal.id} />
+          ))}
+        </ul>
+        <Cart />
+        <Checkout/>
+      </CartProvider>
+    </UserProgressProvider>
   );
 }
 

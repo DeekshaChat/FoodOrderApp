@@ -3,11 +3,9 @@ import CartContext from "../store/CartContext";
 import Button from "./Button";
 
 export default function Item({meal: {id, name,image, description, price}}) {
-  // console.log('name', name);
 
   const context = use(CartContext);
   const quantity = context.items?.some((item) => item.id === id) ? context.items.find((item) => item.id === id).quantity : 0;
-  console.log('quantity', context.items);
   
   return (
     <li className="meal-item" key={id}>

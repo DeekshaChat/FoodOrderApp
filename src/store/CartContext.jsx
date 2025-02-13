@@ -44,7 +44,6 @@ function CartReducer(state, action) {
 export function CartProvider({children}) {
   const [cart, cartDispatchAction] = useReducer(CartReducer, { items: []});
 
-
   function addItem(item) {
     console.log('add item');
     

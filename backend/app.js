@@ -30,7 +30,8 @@ app.post('/orders', async (req, res) => {
   }
 
   if (
-    orderData.customer.email === null ||
+    orderData.customer &&
+    (orderData.customer.email === null ||
     !orderData.customer.email.includes('@') ||
     orderData.customer.name === null ||
     orderData.customer.name.trim() === '' ||
@@ -39,7 +40,7 @@ app.post('/orders', async (req, res) => {
     orderData.customer['postal-code'] === null ||
     orderData.customer['postal-code'].trim() === '' ||
     orderData.customer.city === null ||
-    orderData.customer.city.trim() === ''
+    orderData.customer.city.trim() === '')
   ) {
     return res.status(400).json({
       message:
@@ -55,7 +56,7 @@ app.post('/orders', async (req, res) => {
   const allOrders = JSON.parse(orders);
   allOrders.push(newOrder);
   await fs.writeFile('./data/orders.json', JSON.stringify(allOrders));
-  res.status(201).json({ message: 'Order created!' });
+  res.status(201).json({ success: true, message: 'Order created!' });
 });
 
 app.use((req, res) => {
